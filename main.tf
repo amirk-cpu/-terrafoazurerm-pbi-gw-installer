@@ -5,4 +5,4 @@ resource "azurerm_virtual_machine_run_command" "example" {
   source {
     script = file("${path.module}/files/install-gateway.ps1")
   }
-}=
+}
