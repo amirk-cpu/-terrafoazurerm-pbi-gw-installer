@@ -1,9 +1,1 @@
-Configuration DotNetFramework {
-    Node $AllNodes.NodeName {
-        WindowsFeature DotNetFramework {
-            Name = 'NET-Framework-45-Features'
-            Ensure = 'Present'
-        }
-    }
-}
-DotNetFramework -OutputPath "C:\DSC"
+powershell -ExecutionPolicy Unrestricted -File InstallDotNet-48.ps1 && powershell -NoProfile -ExecutionPolicy unrestricted -Command \"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -Runtime dotnet -Channel 2.1 \" && powershell -NoProfile -ExecutionPolicy unrestricted -Command \"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -Runtime dotnet -Channel 3.1 \"
