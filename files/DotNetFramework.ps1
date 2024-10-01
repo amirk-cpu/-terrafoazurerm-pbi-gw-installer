@@ -1,1 +1,6 @@
-powershell -ExecutionPolicy Unrestricted -File InstallDotNet-48.ps1 && powershell -NoProfile -ExecutionPolicy unrestricted -Command \"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -Runtime dotnet -Channel 2.1 \" && powershell -NoProfile -ExecutionPolicy unrestricted -Command \"[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -Runtime dotnet -Channel 3.1 \"
+$dotNetVersion = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" | Select-Object -ExpandProperty Release
+if ($dotNetVersion -ge 528040) {
+    Write-Output ".NET Framework 4.8 is installed."
+} else {
+    Write-Output ".NET Framework 4.8 is not installed."
+}
